@@ -1,0 +1,36 @@
+import random
+
+correct_letter = [""]
+incorrect_letter = []
+word_choices = ["norweigian blue", "shark tales", "fun party", "random sun", "blue dream", "yellow smoke"]
+
+word = random.choice(word_choices)
+
+possible_char = set(list(word))  # list() turns each letter in word into string & add to list, set() removes duplicates
+# print(possible_char)
+
+
+while len(incorrect_letter) < 5:
+    guess = input("Please enter a letter in or say the word i'm guessing: ").casefold()
+    # initial loop of letter guessing
+    if guess not in correct_letter:
+        if guess in word:
+            print("{} is in the word i'm guessing".format(guess))
+            correct_letter.append(guess)
+            print("\n current letters you've guessed correctly: ", correct_letter)
+            print("")
+            if len(correct_letter) == len(possible_char):
+                print("\nCongrats! {} was the word I was thinking".format(word))
+                break
+            elif guess == word:    # guess is equal to word i'm guessing
+                print("\nCorrect! You've guessed the word, {}, that I was thinking".format(word))
+                break
+        else:   # wrong letter
+            print("{} is not in the word i'm guessing, a part will be added to your hangman".format(guess))
+            incorrect_letter.append(guess)
+            print("")
+    else:
+        print("Opps, you've entered that letter already")
+        print("")
+else:  # hangman is completed, user loses!
+    print("Sorry your hangman has been completed. Try again! ")
